@@ -110,42 +110,14 @@ def run_predict(config, datasplit="validation"):
             all_outputs["gold_labels"].append(example["label"])
             all_outputs["stance_targets"].append(example["target_code"])
 
-    #preds_dir_str = ''
-    #if config.Model.load_finetuned_checkpoint.value is True:
-    #    preds_dir_str = "finetune"
-    #    if config.Model.Lora.use_lora.value is False:
-    #        preds_dir_str += "_no_lora"
-    #else:
-    #    preds_dir_str = f"{config.Data.fewshot_examples.value}_shot"
-    #preds_dir = os.path.join(outdir, "predictions", preds_dir_str)
     preds_dir = os.path.join(outdir, "predictions")
     os.makedirs(preds_dir, exist_ok=True)
     config.yaml(outpath=os.path.join(preds_dir, "config.yaml"))
-    #probs = outputs["logits"].softmax(1)
-    #probs_by_label = {lab: probs[:, i].tolist()
-    #                  for (i, lab) in enumerate(datamodule.labels)}
     out_df = pd.DataFrame(all_outputs)
     all_logits = torch.tensor(all_logits)
     for (lab, lab_logits) in zip(labels, all_logits.T):
         out_df.loc[:, f"logits_{lab}"] = lab_logits
     out_df.to_csv(os.path.join(preds_dir, f"{datasplit}.csv"), index=False)
-
-    #target = torch.LongTensor(
-    #        [datamodule.labels.index(lab) for lab in gold_labels])
-    #label_weights = compute_class_weight(
-    #        class_weight="balanced",
-    #        y=np.array(gold_labels), classes=np.array(datamodule.labels))
-    #label_weights = torch.FloatTensor(label_weights).to(probs.device, torch.float)
-    #loss = torch.nn.functional.nll_loss(
-    #        torch.log(probs.to(torch.float)), target, weight=label_weights)
-    #loss_file = os.path.join(outdir, "predictions", "losses.csv")
-    #if os.path.isfile(loss_file):
-    #    losses = pd.read_csv(loss_file)
-    #else:
-    #    losses = pd.DataFrame()
-    #new_df = pd.DataFrame({"eval": [preds_dir_str], "loss": [loss.item()]})
-    #losses = pd.concat([losses, new_df])
-    #losses.to_csv(loss_file, index=False)
 
 
 if __name__ == "__main__":
