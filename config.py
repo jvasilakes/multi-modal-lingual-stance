@@ -1,7 +1,7 @@
 import os
 
-from experiment_config import Config, get_and_run_config_command
-from experiment_config.config import Parameter
+from yaml_kit import Config, get_and_run_config_command
+from yaml_kit.config import Parameter
 
 
 config = Config("StanceDetectionConfig")
