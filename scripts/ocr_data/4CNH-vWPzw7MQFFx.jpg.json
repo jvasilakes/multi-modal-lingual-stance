@@ -1,0 +1,41 @@
+{
+  "script": {
+    "code": "latn",
+    "name": "Latin",
+    "probability": 0.6164749854309107
+  },
+  "bounding_boxes": [
+    {
+      "text": "RVAT",
+      "bounding_box": [
+        [
+          1003,
+          85
+        ],
+        [
+          1113,
+          85
+        ],
+        [
+          1113,
+          147
+        ],
+        [
+          1003,
+          147
+        ]
+      ],
+      "language": {
+        "code": "da",
+        "name": "Danish",
+        "probability": 0.5503012537956238
+      },
+      "script": {
+        "code": "latn",
+        "name": "Latin",
+        "probability": 0.616474986076355
+      }
+    }
+  ]
+}
+
