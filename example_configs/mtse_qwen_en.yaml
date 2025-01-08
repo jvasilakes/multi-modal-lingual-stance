@@ -1,0 +1,40 @@
+Experiment:
+  # The name of this experiment. Used when generating output_dir.
+  name: mtse
+  # The base directory for storing experiment logs.
+  logdir: /home/ac1jv/data3/multi-modal-stance/logs/
+  version: 0
+  random_seed: 0
+  # Automatically generated
+  output_dir: 
+    /home/ac1jv/data3/multi-modal-stance/logs/mtse/Qwen2-VL-7B-Instruct/prompt_en/tweet_en/version_0/seed_0
+Data:
+  # Name of the dataset to load. Get valid values using
+  # python -m src.data.dataset
+  name: mtse
+  # Path to directory containing in-target/ and images/ subdirectories.
+  datadir: /data3/gate/exu/multi_modal_stance/Multi-modal-Twitter-Stance-Election-2020/
+  language: en  # (deprecated)
+  # ISO code for the prompt language to use.
+  prompt_language: en
+  # ISO code for the tweet language to use.
+  tweet_language: en
+  # If False, loads Gaussian noise.
+  use_images: true
+  # If True, don't load images, just text extracted from the images
+  # which are held in Data.images_dirname.
+  use_image_text: false
+  # Name of subdirectory under datadir that contains the images to load.
+  images_dirname: images
+  # If False, loads the prompt without the text.
+  use_text: true
+Model:
+  # Name of the model family to load. Get valid values using
+  # python -m src.modeling.model
+  name: qwen2
+  # The huggingface model path to load.
+  model_path: Qwen/Qwen2-VL-7B-Instruct
+Git:
+  branch: master
+  commit: 5d91e21
+  url: https://github.com/jvasilakes/multi-modal-lingual-stance.git
