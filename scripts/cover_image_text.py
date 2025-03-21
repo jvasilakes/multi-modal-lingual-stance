@@ -105,7 +105,7 @@ def cover_non_image(imgfile, ocr_data_file, outfile):
     num_covered = 0
     for x in range(img.size[0]):
         for y in range(img.size[1]):
-            if x in box_xs and y in box_ys:
+            if x in box_xs or y in box_ys:
                 continue
             try:
                 pixels[x, y] = (0, 0, 0)

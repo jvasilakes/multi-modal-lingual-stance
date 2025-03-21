@@ -44,7 +44,7 @@ class VLMForClassification(object):
             self.model_path, torch_dtype="auto", device_map="auto",
             trust_remote_code=True, )
 
-    def predict(self, inputs, label_ids=None):
+    def predict(self, inputs, label_ids=None, max_new_tokens=30):
         """
         inputs: dict of input_ids, etc output from processor
         label_ids: {label_str: [[label_ids], [label_ids], ...]}
@@ -53,7 +53,7 @@ class VLMForClassification(object):
         """
         # Predict
         model_outputs = self.model.generate(
-                **inputs, max_new_tokens=30,
+                **inputs, max_new_tokens=max_new_tokens,
                 output_scores=True, return_dict_in_generate=True)
 
         # Get only the generated token IDs, without the prompt.
@@ -250,7 +250,7 @@ class InternVL2ForClassification(VLMForClassification):
                 "pixel_values": pixel_values}
         return model_inputs
 
-    def predict(self, inputs, label_ids=None):
+    def predict(self, inputs, label_ids=None, max_new_tokens=30):
         """
         inputs: dict of input_ids, etc output from processor
         label_ids: {label_str: [[label_ids], [label_ids], ...]}
@@ -259,7 +259,7 @@ class InternVL2ForClassification(VLMForClassification):
         """
         # Predict
         model_outputs = self.model.generate(
-                **inputs, max_new_tokens=30,
+                **inputs, max_new_tokens=max_new_tokens,
                 output_scores=True, return_dict_in_generate=True)
         outputs = {"generated_text": model_outputs.sequences}
 
@@ -305,7 +305,7 @@ class OvisForClassification(VLMForClassification):
                 "pixel_values": pixel_values}
         return model_inputs
 
-    def predict(self, inputs, label_ids=None):
+    def predict(self, inputs, label_ids=None, max_new_tokens=30):
         """
         inputs: dict of input_ids, etc output from processor
         label_ids: {label_str: [[label_ids], [label_ids], ...]}
@@ -318,10 +318,14 @@ class OvisForClassification(VLMForClassification):
         # pass things in separately rather than just expanding the dict.
         input_ids = inputs["input_ids"]
         attention_mask = inputs["attention_mask"]
-        pixel_values = inputs["pixel_values"]
+        try:
+            pixel_values = inputs["pixel_values"]
+        except KeyError:
+            pixel_values = torch.zeros((5, 3, 384, 384))
+            pixel_values = [pixel_values.to(device=self.device, dtype=self.model.dtype)]
         model_outputs = self.model.generate(
                 input_ids, attention_mask=attention_mask,
-                pixel_values=pixel_values, max_new_tokens=30,
+                pixel_values=pixel_values, max_new_tokens=max_new_tokens,
                 output_scores=True, return_dict_in_generate=True)
         outputs = {"generated_text": model_outputs.sequences}
 
