@@ -1,3 +1,9 @@
+"""
+Perform a McNemar's test between two sets of predictions
+to determine whether the models' prediction distributions
+are significantly different.
+"""
+
 import argparse
 
 import numpy as np
@@ -30,7 +36,7 @@ def main(args):
         exp_names = ["no_text_in_image", "text_in_image"]
     for (pair, name) in zip(pairs, exp_names):
         print(f"=== {name} ===")
-        table = contigency_table(*pair)
+        table = contingency_table(*pair)
         print(table)
         correction = any(table.flatten() < 25)
         result = mcnemar(table, exact=True, correction=correction)
@@ -46,7 +52,7 @@ def read_all_predictions(prediction_files):
     return df
 
 
-def contigency_table(preds1, preds2):
+def contingency_table(preds1, preds2):
     y1 = preds1.predicted_label
     gold1 = preds1.gold_labels
     y2 = preds2.predicted_label

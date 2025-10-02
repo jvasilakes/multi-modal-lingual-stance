@@ -1,3 +1,9 @@
+"""
+Compare the agreement between two sets of predictions
+for each stance target.
+"""
+
+
 import json
 import argparse
 import warnings

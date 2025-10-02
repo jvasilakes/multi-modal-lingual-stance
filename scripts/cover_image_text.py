@@ -1,3 +1,11 @@
+"""
+Given a directory of images and corresponding OCR data
+cover any and all text in the image with a black box.
+The OCR data is obtained using the GATE cloud service
+https://cloud.gate.ac.uk/shopfront/displayItem/ml-ocr
+"""
+
+
 import os
 import json
 import argparse
@@ -8,14 +16,6 @@ import warnings
 import numpy as np
 from PIL import Image
 from tqdm import tqdm
-
-
-"""
-Given a directory of images and corresponding OCR data
-cover any and all text in the image with a black box.
-The OCR data is obtained using the GATE cloud service
-https://cloud.gate.ac.uk/shopfront/displayItem/ml-ocr
-"""
 
 
 def parse_args():

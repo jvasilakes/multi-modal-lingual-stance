@@ -21,7 +21,8 @@ def parse_args():
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command")
     
-    train_parser = subparsers.add_parser("train", help="Run model training")
+    train_parser = subparsers.add_parser(
+            "train", help="Run model training (not implemented)")
     train_parser.add_argument(
         "config_file", type=str, help="Path to yaml config file.")
 

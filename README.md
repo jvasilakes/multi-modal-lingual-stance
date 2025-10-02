@@ -1,7 +1,7 @@
 # Multi-Modal, Multi-Lingual Stance Detection
 
-This repository contains code for running experiments using various Vision-Language Models
-on the stance detection dataset from [Liang et al., 2024](https://arxiv.org/abs/2402.14298).
+This repository contains code for running experiments for the paper
+[Exploring Vision Language Models for Multimodal and Multilingual Stance Detection](https://arxiv.org/abs/2501.17654).
 
 ## Requirements
 
@@ -18,12 +18,19 @@ on the stance detection dataset from [Liang et al., 2024](https://arxiv.org/abs/
  - `seaborn`
  - `qwen_vl_utils`
  - `yaml-kit`
+ - `nltk`
+
+
+Just run `pip install -r requirements.txt`
+
+
 
 
 ## Obtaining the Data
 
 
-The dataset is freely available at https://github.com/Leon-Francis/Multi-Modal-Stance-Detection/.
+We use the stance detection dataset from [Liang et al., 2024](https://arxiv.org/abs/2402.14298),
+which is freely available at https://github.com/Leon-Francis/Multi-Modal-Stance-Detection/.
 However, you'll need to hydrate the tweets and download the images yourself.
  
   
@@ -67,7 +74,3 @@ python config.py new myconfig.yaml
 ```
 
 Then fill in the values according to the comments included for each variable.
-
-
-`yaml-kit` provides a number of tools for modifying config files easily from the command line.
-Check out the documentation to learn more.

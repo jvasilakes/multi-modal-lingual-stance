@@ -1,3 +1,10 @@
+"""
+Given a CSV file of predictions obtained from run.py
+add columns for the text obtained by OCR (ocr_text)
+and the proportion of the image contained in the OCR
+bounding box (ocr_text_coverage).
+"""
+
 import os
 import json
 import argparse
